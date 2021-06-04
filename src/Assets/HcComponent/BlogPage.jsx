@@ -14,19 +14,30 @@ import Card1 from "../Image/image1.jpg";
 // import Img8 from "../Image/demo/thumbnail-08.png";
 // import Img9 from "../Image/demo/thumbnail-09.png";
 
-const BlogPage = () => {
-  const [users, setUsers] = useState([]);
-  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const getUsers = () => {
-      axios.get("http://localhost:5000/newroute").then(resp=>{
-        console.log(resp.data);
-          setUsers({resp})
-      })
-    };
-    getUsers();
-  },[] );
+
+
+
+const BlogPage = () => {
+  
+    
+
+        const [users,setUsers]=useState([]);
+
+        const getUsers= async()=>{
+            const response = await fetch('http://localhost:5000/newroute');
+
+            setUsers(await response.json())
+            // const data = await response.json();
+            // console.log(data)
+        }
+        useEffect(()=>{
+            getUsers();
+        })
+
+    
+  
+
 
   return (
     <div id="BlogPage">
@@ -35,29 +46,31 @@ const BlogPage = () => {
             <div className="col-md-7 mx-auto text-center">
               
               
-                  <h2>{users.data}</h2>
+                  <h2>Blog Page</h2>
               
-              <p>
+              {/* <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
                 quasi numquam esse earum adipisci dolor ipsum dolorem, culpa,
                 eaque magnam quas tempora nam totam? Iusto quam sunt alias
                 pariatur? Excepturi.
-              </p>
+              </p> */}
             </div>
           
       </section>
       <section className="container-fluid">
         <div className="row">
-          {Cardata.map((val, index) => {
-            return (
-              <Card
-                key={index}
-                imgsrc={val.imgsrc}
-                heading={val.heading}
-                text={val.text}
-              />
-            );
-          })}
+            {
+                users.map((val,index)=>{
+                    return(
+                        <Card
+                        key={index}
+                        image={val.image}
+                        slug={val.slug}
+                        content={val.content}
+                      />
+                    )
+                })
+            }
         </div>
       </section>
       <section className="container-fluid mt-5 p-5 d-flex right-align">
@@ -73,10 +86,10 @@ const Card = (props) => {
     <>
       <div className="col-md-3 col-sm-6 mt-5">
         <div class="card" id="blogcard">
-          <img class="card-img-top" src={props.imgsrc} alt="Card image cap" />
+          <img class="card-img-top" src={props.image} alt="Card image cap" />
           <div class="card-body">
-            <h5 class="card-title">{props.heading}</h5>
-            <p class="card-text">{props.text}</p>
+            <h5 class="card-title">{props.slug}</h5>
+            <p class="card-text">{props.content}</p>
             <a href="#" class="btn btn-primary">
               Get Started
             </a>
@@ -86,42 +99,42 @@ const Card = (props) => {
     </>
   );
 };
-const Cardata = [
-  {
-    imgsrc: Card1,
-    heading: "Card title",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
-  },
-  {
-    imgsrc: Card1,
-    heading: "Card title",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
-  },
-  {
-    imgsrc: Card1,
-    heading: "Card title",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
-  },
-  {
-    imgsrc: Card1,
-    heading: "Card title",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
-  },
-  {
-    imgsrc: Card1,
-    heading: "Card title",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
-  },
-  {
-    imgsrc: Card1,
-    heading: "Card title",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
-  },
-  {
-    imgsrc: Card1,
-    heading: "Card title",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
-  },
-];
+// const Cardata = [
+//   {
+//     imgsrc: Card1,
+//     heading: "Card title",
+//     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
+//   },
+//   {
+//     imgsrc: Card1,
+//     heading: "Card title",
+//     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
+//   },
+//   {
+//     imgsrc: Card1,
+//     heading: "Card title",
+//     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
+//   },
+//   {
+//     imgsrc: Card1,
+//     heading: "Card title",
+//     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
+//   },
+//   {
+//     imgsrc: Card1,
+//     heading: "Card title",
+//     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
+//   },
+//   {
+//     imgsrc: Card1,
+//     heading: "Card title",
+//     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
+//   },
+//   {
+//     imgsrc: Card1,
+//     heading: "Card title",
+//     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, vitae. Voluptates perferendis ipsa placeat",
+//   },
+// ];
 export default BlogPage;
-export { Cardata };
+// export { Cardata };
